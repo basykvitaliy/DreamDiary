@@ -12,7 +12,6 @@ class MenuScreen extends StatefulWidget {
 
   @override
   State<MenuScreen> createState() => _MenuScreenState();
-
 }
 
 class _MenuScreenState extends State<MenuScreen> {
@@ -24,13 +23,6 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        toolbarHeight: 10,
-        automaticallyImplyLeading: false,
-      ),
-      backgroundColor: AppColors.lightGray,
       body: _buildScreens()[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedIndex,
@@ -39,20 +31,21 @@ class _MenuScreenState extends State<MenuScreen> {
           setState(() {
             selectedIndex = index;
           });
-
         },
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.mainColor,
         elevation: 0,
-        selectedItemColor: AppColors.mainColor,
+        selectedItemColor: AppColors.secondColor,
         selectedFontSize: 12,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: [
           BottomNavigationBarItem(
             icon: Container(
               padding: const EdgeInsets.only(bottom: 6),
               child: SvgPicture.asset(
                 "assets/svg/menu_icon_1.svg",
-                width: 30,
-                height: 30,
+                width: 25,
+                height: 25,
                 color: AppColors.gray,
               ),
             ),
@@ -60,9 +53,9 @@ class _MenuScreenState extends State<MenuScreen> {
               padding: const EdgeInsets.only(bottom: 6),
               child: SvgPicture.asset(
                 "assets/svg/menu_icon_1.svg",
-                width: 30,
-                height: 30,
-                color: AppColors.mainColor,
+                width: 25,
+                height: 25,
+                color: AppColors.secondColor,
               ),
             ),
             label: "Home",
@@ -72,8 +65,8 @@ class _MenuScreenState extends State<MenuScreen> {
                 padding: const EdgeInsets.only(bottom: 6),
                 child: SvgPicture.asset(
                   "assets/svg/menu_icon_2.svg",
-                  width: 30,
-                  height: 30,
+                  width: 25,
+                  height: 25,
                   color: AppColors.gray,
                 ),
               ),
@@ -81,9 +74,9 @@ class _MenuScreenState extends State<MenuScreen> {
                 padding: const EdgeInsets.only(bottom: 6),
                 child: SvgPicture.asset(
                   "assets/svg/menu_icon_2.svg",
-                  width: 30,
-                  height: 30,
-                  color: AppColors.mainColor,
+                  width: 25,
+                  height: 25,
+                  color: AppColors.secondColor,
                 ),
               ),
               label: "Foundings"),
@@ -92,8 +85,8 @@ class _MenuScreenState extends State<MenuScreen> {
               padding: const EdgeInsets.only(bottom: 6),
               child: SvgPicture.asset(
                 "assets/svg/menu_icon_3.svg",
-                width: 30,
-                height: 30,
+                width: 25,
+                height: 25,
                 color: AppColors.gray,
               ),
             ),
@@ -101,9 +94,9 @@ class _MenuScreenState extends State<MenuScreen> {
               padding: const EdgeInsets.only(bottom: 6),
               child: SvgPicture.asset(
                 "assets/svg/menu_icon_3.svg",
-                width: 30,
-                height: 30,
-                color: AppColors.mainColor,
+                width: 25,
+                height: 25,
+                color: AppColors.secondColor,
               ),
             ),
             label: "Techniques",
@@ -113,8 +106,8 @@ class _MenuScreenState extends State<MenuScreen> {
               padding: const EdgeInsets.only(bottom: 6),
               child: SvgPicture.asset(
                 "assets/svg/menu_icon_4.svg",
-                width: 30,
-                height: 30,
+                width: 25,
+                height: 25,
                 color: AppColors.gray,
               ),
             ),
@@ -122,9 +115,9 @@ class _MenuScreenState extends State<MenuScreen> {
               padding: const EdgeInsets.only(bottom: 6),
               child: SvgPicture.asset(
                 "assets/svg/menu_icon_4.svg",
-                width: 30,
-                height: 30,
-                color: AppColors.mainColor,
+                width: 25,
+                height: 25,
+                color: AppColors.secondColor,
               ),
             ),
             label: "Statistics",
@@ -134,8 +127,8 @@ class _MenuScreenState extends State<MenuScreen> {
               padding: const EdgeInsets.only(bottom: 6),
               child: SvgPicture.asset(
                 "assets/svg/menu_icon_5.svg",
-                width: 30,
-                height: 30,
+                width: 25,
+                height: 25,
                 color: AppColors.gray,
               ),
             ),
@@ -143,9 +136,9 @@ class _MenuScreenState extends State<MenuScreen> {
               padding: const EdgeInsets.only(bottom: 6),
               child: SvgPicture.asset(
                 "assets/svg/menu_icon_5.svg",
-                width: 30,
-                height: 30,
-                color: AppColors.mainColor,
+                width: 25,
+                height: 25,
+                color: AppColors.secondColor,
               ),
             ),
             label: "Settings",

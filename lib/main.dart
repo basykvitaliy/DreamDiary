@@ -1,4 +1,5 @@
 import 'package:dream_diary/screens/menu/menu_screen.dart';
+import 'package:dream_diary/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MenuScreen(),
+      home: SplashScreen(),
     );
   }
 }
