@@ -1,20 +1,21 @@
 import 'package:dream_diary/fake_data/fake_list.dart';
 import 'package:dream_diary/helpers/app_colors.dart';
 import 'package:dream_diary/helpers/app_styles.dart';
-import 'package:dream_diary/screens/detail/detail_screen.dart';
 import 'package:dream_diary/widget/list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TechniquesScreen extends StatefulWidget {
-  TechniquesScreen({super.key});
+class DetailScreen extends StatelessWidget {
+  DetailScreen({
+    super.key,
+    required this.title,
+    required this.description,
+    required this.imgPath,
+  });
 
-  @override
-  State<TechniquesScreen> createState() => _TechniquesScreenState();
-
-}
-
-class _TechniquesScreenState extends State<TechniquesScreen> {
+  String title;
+  String description;
+  String imgPath;
 
   @override
   Widget build(BuildContext context) {
@@ -29,19 +30,27 @@ class _TechniquesScreenState extends State<TechniquesScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 50),
+                  Row(
+                    children: [
+                      GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: const Icon(
+                            Icons.arrow_back,
+                            color: AppColors.gray,
+                          ))
+                    ],
+                  ),
+                  const SizedBox(height: 20),
                   Text(
-                    "Techniques",
+                    title,
                     style: GoogleFonts.epilogue(
                       textStyle: AppStyles.boldWhiteHeading,
                     ),
                   ),
-                  const SizedBox(height: 32),
-                  ListWidget(
-                    imgList: techniquesImgList,
-                    titleList: techniquesTitleList,
-                    subTitleList: [],
-                    onTap: (index) => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(title: techniquesTitleList[index], description: '', imgPath: techniquesImgList[index]))),
-                  ),
+                  Image.asset(
+                    imgPath,
+                    fit: BoxFit.cover,
+                  )
                 ],
               ),
             ),
@@ -51,5 +60,3 @@ class _TechniquesScreenState extends State<TechniquesScreen> {
     );
   }
 }
-
-

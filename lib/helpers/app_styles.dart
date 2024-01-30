@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -21,6 +20,7 @@ class AppStyles {
   static const boldGreyHeading22 = TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.grey);
 
   static const regularBodyWhiteText = TextStyle(fontSize: 8, fontWeight: FontWeight.w400, color: Colors.white);
+  static const regularWhiteText14 = TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.white);
   static const regularWhiteText = TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.white);
   static const regularWhiteHeading = TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: Colors.white);
   static const boldWhiteHeading = TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white);

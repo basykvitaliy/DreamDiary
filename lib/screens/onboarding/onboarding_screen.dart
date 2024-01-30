@@ -1,5 +1,6 @@
 import 'package:dream_diary/helpers/app_colors.dart';
 import 'package:dream_diary/helpers/app_styles.dart';
+import 'package:dream_diary/screens/menu/menu_screen.dart';
 import 'package:dream_diary/widget/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,13 +26,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Widget _indicator(bool isActive) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 150),
-      margin: EdgeInsets.symmetric(horizontal: 8.0),
-      height: isActive ? 12.0 : 8.0,
-      width: isActive ? 12.0 : 8.0,
+      duration: const Duration(milliseconds: 150),
+      margin: const EdgeInsets.symmetric(horizontal: 8.0),
+      height: isActive ? 8.0 : 8.0,
+      width: isActive ? 14.0 : 8.0,
       decoration: BoxDecoration(
         color: isActive ? Colors.yellow : Colors.grey,
-        borderRadius: BorderRadius.all(Radius.circular(12)),
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
       ),
     );
   }
@@ -42,80 +43,80 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: Stack(
         children: [
           SizedBox(width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.height, child: Image.asset("assets/images/main_bg.png", fit: BoxFit.cover)),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () => print('Skip'),
-                  child: Text(
-                    'Skip',
-                    style: GoogleFonts.mulish(
-                      textStyle: AppStyles.regularGreyText16,
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MenuScreen())),
+                    child: Text(
+                      'Skip',
+                      style: GoogleFonts.mulish(
+                        textStyle: AppStyles.regularGreyText16,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Container(
-                height: 600.0,
-                child: PageView(
-                  physics: const ClampingScrollPhysics(),
-                  controller: _pageController,
-                  onPageChanged: (int page) {
-                    setState(() {
-                      _currentPage = page;
-                    });
-                  },
-                  children: [
-                    _buildPageContent(
-                      image: "assets/svg/onboard_1.svg",
-                      title: 'Discover Your Dreams',
-                      body: 'Dive into the mystical world of dreams and discover their hidden meanings. Record, analyze, and understand your dreams to gain insights into your subconscious mind.',
-                    ),
-                    _buildPageContent(
-                      image: "assets/svg/onboard_2.svg",
-                      title: 'Unlock the Secrets of Your Dreams',
-                      body: 'Access a wealth of research and articles on dream psychology. Learn from experts and explore various techniques for lucid dreaming to enhance your spiritual and mental clarity.',
-                    ),
-                    _buildPageContent(
-                      image: "assets/svg/onboard_3.svg",
-                      title: 'Personal Growth and Insights',
-                      body: 'Track your dream patterns with statistics and daily reminders. Create a personalized dream guide and share your dream journey with friends to explore the richness of your inner world.',
-                    ),
-                  ],
+                SizedBox(
+                  height: 600.0,
+                  child: PageView(
+                    physics: const ClampingScrollPhysics(),
+                    controller: _pageController,
+                    onPageChanged: (int page) {
+                      setState(() {
+                        _currentPage = page;
+                      });
+                    },
+                    children: [
+                      _buildPageContent(
+                        image: "assets/svg/onboard_1.svg",
+                        title: 'Discover Your Dreams',
+                        body: 'Dive into the mystical world of dreams and discover their hidden meanings. Record, analyze, and understand your dreams to gain insights into your subconscious mind.',
+                      ),
+                      _buildPageContent(
+                        image: "assets/svg/onboard_2.svg",
+                        title: 'Unlock the Secrets of Your Dreams',
+                        body: 'Access a wealth of research and articles on dream psychology. Learn from experts and explore various techniques for lucid dreaming to enhance your spiritual and mental clarity.',
+                      ),
+                      _buildPageContent(
+                        image: "assets/svg/onboard_3.svg",
+                        title: 'Personal Growth and Insights',
+                        body: 'Track your dream patterns with statistics and daily reminders. Create a personalized dream guide and share your dream journey with friends to explore the richness of your inner world.',
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: _buildPageIndicator(),
-              ),
-              _currentPage != _numPages - 1
-                  ? ButtonWidget(
-                      height: 50,
-                      title: "Next",
-                      isDisabledBtn: false,
-                      onTap: () {
-                        _pageController.nextPage(
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.ease,
-                        );
-                      },
-                    )
-                  : Text(''),
-            ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: _buildPageIndicator(),
+                ),
+                _currentPage != _numPages - 1
+                    ? ButtonWidget(
+                        height: 50,
+                        title: "Next",
+                        isDisabledBtn: false,
+                        onTap: () {
+                          _pageController.nextPage(
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.ease,
+                          );
+                        },
+                      )
+                    : ButtonWidget(
+                        height: 50,
+                        title: "Continue",
+                        isDisabledBtn: false,
+                        onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MenuScreen())),
+                      ),
+              ],
+            ),
           ),
         ],
       ),
-      bottomSheet: _currentPage == _numPages - 1
-          ? ButtonWidget(
-              height: 50,
-              title: "Continue",
-              isDisabledBtn: false,
-              onTap: () {},
-            )
-          : Text(''),
     );
   }
 
@@ -131,7 +132,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         SvgPicture.asset(
           image,
         ),
-        SizedBox(height: 30.0),
+        const SizedBox(height: 30.0),
         Text(
           title,
           style: GoogleFonts.epilogue(
@@ -139,7 +140,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           textAlign: TextAlign.center,
         ),
-        SizedBox(height: 15.0),
+        const SizedBox(height: 15.0),
         Text(
           body,
           style: GoogleFonts.mulish(
