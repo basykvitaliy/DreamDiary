@@ -56,7 +56,15 @@ class ListWidget extends StatelessWidget {
                         ),
                         overflow: TextOverflow.clip,
                       ),
-                      //Text(subTitleList[index], style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.gray)),
+                      Text(
+                        subTitleList[index],
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.mulish(
+                          textStyle: AppStyles.regularWhiteText14,
+                          color: AppColors.gray,
+                        ),
+                      ),
                     ],
                   ),
                 ),

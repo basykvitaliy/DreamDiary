@@ -20,13 +20,15 @@ class AppStyles {
   static const boldGreyHeading22 = TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.grey);
 
   static const regularBodyWhiteText = TextStyle(fontSize: 8, fontWeight: FontWeight.w400, color: Colors.white);
+  static const regularWhiteText12 = TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.white);
   static const regularWhiteText14 = TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.white);
   static const regularWhiteText = TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.white);
-  static const regularWhiteHeading = TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: Colors.white);
+  static const regularWhiteHeading = TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white);
+  static const regularWhite22 = TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white);
   static const boldWhiteHeading = TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white);
 
   static const regularBodyMainText = TextStyle(fontSize: 8, fontWeight: FontWeight.w400, color: AppColors.mainColor);
-  static const regularMainText16 = TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: AppColors.mainColor);
+  static const regularMainText16 = TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: AppColors.gray);
   static const regularMainHeading = TextStyle(fontSize: 18, fontWeight: FontWeight.w400, color: AppColors.mainColor);
   static const boldMainHeading22 = TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.mainColor);
   static const boldMainHeading24 = TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.mainColor);

@@ -47,10 +47,19 @@ class DetailScreen extends StatelessWidget {
                       textStyle: AppStyles.boldWhiteHeading,
                     ),
                   ),
-                  Image.asset(
-                    imgPath,
-                    fit: BoxFit.cover,
-                  )
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 12),
+                    child: Image.asset(
+                      imgPath,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Text(
+                    description,
+                    style: GoogleFonts.mulish(
+                      textStyle: AppStyles.regularMainText16,
+                    ),
+                  ),
                 ],
               ),
             ),

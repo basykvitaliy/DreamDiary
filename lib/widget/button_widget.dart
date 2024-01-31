@@ -1,5 +1,6 @@
 import 'package:dream_diary/helpers/app_colors.dart';
 import 'package:dream_diary/helpers/app_styles.dart';
+import 'package:dream_diary/widget/out_shadow_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,19 +20,26 @@ class ButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ButtonStyle(
-          minimumSize: MaterialStateProperty.all<Size>(Size(MediaQuery.of(context).size.width, height ?? 60)),
-          backgroundColor: !isDisabledBtn! ? MaterialStateProperty.all<Color>(AppColors.secondColor) : MaterialStateProperty.all<Color>(AppColors.bgElements),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25),
-          ))),
-      onPressed: !isDisabledBtn! ? onTap : null,
-      child: Text(title,
-          style: GoogleFonts.mulish(
-            textStyle: AppStyles.regularMainText16,
-            fontWeight: FontWeight.bold
-          )),
+    return GestureDetector(
+      onTap: !isDisabledBtn! ? onTap : null,
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: 45,
+        margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: AppColors.secondColor,
+          boxShadow: OutShadowWidget().showOutShadow(),
+        ),
+        child: Center(
+          child: Text(title,
+              style: GoogleFonts.mulish(
+                textStyle: AppStyles.regularMainHeading,
+                fontWeight: FontWeight.bold
+              )),
+        ),
+      ),
     );
   }
 }

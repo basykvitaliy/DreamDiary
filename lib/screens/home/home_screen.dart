@@ -4,6 +4,7 @@ import 'package:dream_diary/screens/add_dream/add_dream_screen.dart';
 import 'package:dream_diary/widget/button_widget.dart';
 import 'package:dream_diary/widget/diary_page_widget.dart';
 import 'package:dream_diary/widget/dreampage_widget.dart';
+import 'package:dream_diary/widget/out_shadow_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -58,6 +59,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: BoxDecoration(
                               border: Border.all(width: 1, color: _selectedIndex == 0 ? AppColors.secondColor : AppColors.gray),
                               borderRadius: BorderRadius.circular(25),
+                                color: _selectedIndex == 0 ? AppColors.bgElements : Colors.transparent,
+                                boxShadow: _selectedIndex == 0 ? OutShadowWidget().showOutShadow() : null
                             ),
                             child: Center(
                               child: Text(
@@ -65,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.epilogue(
                                   textStyle: AppStyles.regularGreyText16,
-                                  color: _selectedIndex == 0 ? Colors.white : AppColors.gray,
+                                  color: _selectedIndex == 0 ? AppColors.secondColor : AppColors.gray,
                                 ),
                               ),
                             ),
@@ -81,6 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: BoxDecoration(
                               border: Border.all(width: 1, color: _selectedIndex == 1 ? AppColors.secondColor : AppColors.gray),
                               borderRadius: BorderRadius.circular(25),
+                                color: _selectedIndex == 1 ? AppColors.bgElements : Colors.transparent,
+                                boxShadow: _selectedIndex == 1 ? OutShadowWidget().showOutShadow() : null
                             ),
                             child: Center(
                               child: Text(
@@ -88,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.epilogue(
                                   textStyle: AppStyles.regularGreyText16,
-                                  color: _selectedIndex == 1 ? Colors.white : AppColors.gray,
+                                  color: _selectedIndex == 1 ? AppColors.secondColor : AppColors.gray,
                                 ),
                               ),
                             ),
@@ -97,6 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     ],
                   ),
+                  const SizedBox(height: 24),
                   Expanded(
                     child: PageView(
                       controller: _pageController,
@@ -121,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
           height: 50,
           title: "Add a Dream",
           isDisabledBtn: false,
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AddDreamScreen())),
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AddDreamScreen())),
         ),
       ),
     );

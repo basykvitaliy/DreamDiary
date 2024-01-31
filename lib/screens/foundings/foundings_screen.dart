@@ -2,8 +2,8 @@ import 'package:dream_diary/fake_data/fake_list.dart';
 import 'package:dream_diary/helpers/app_colors.dart';
 import 'package:dream_diary/helpers/app_styles.dart';
 import 'package:dream_diary/screens/detail/detail_screen.dart';
-import 'package:dream_diary/widget/dreampage_widget.dart';
 import 'package:dream_diary/widget/list_widget.dart';
+import 'package:dream_diary/widget/out_shadow_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -66,6 +66,8 @@ class _FoundingsScreenState extends State<FoundingsScreen> {
                             decoration: BoxDecoration(
                               border: Border.all(width: 1, color: _selectedIndex == 0 ? AppColors.secondColor : AppColors.gray),
                               borderRadius: BorderRadius.circular(25),
+                              color: _selectedIndex == 0 ? AppColors.bgElements : Colors.transparent,
+                              boxShadow: _selectedIndex == 0 ? OutShadowWidget().showOutShadow() : null
                             ),
                             child: Center(
                               child: Text(
@@ -73,7 +75,7 @@ class _FoundingsScreenState extends State<FoundingsScreen> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.epilogue(
                                   textStyle: AppStyles.regularGreyText16,
-                                  color: _selectedIndex == 0 ? Colors.white : AppColors.gray,
+                                  color: _selectedIndex == 0 ? AppColors.secondColor : AppColors.gray,
                                 ),
                               ),
                             ),
@@ -89,6 +91,8 @@ class _FoundingsScreenState extends State<FoundingsScreen> {
                             decoration: BoxDecoration(
                               border: Border.all(width: 1, color: _selectedIndex == 1 ? AppColors.secondColor : AppColors.gray),
                               borderRadius: BorderRadius.circular(25),
+                                color: _selectedIndex == 1 ? AppColors.bgElements : Colors.transparent,
+                                boxShadow: _selectedIndex == 1 ? OutShadowWidget().showOutShadow() : null
                             ),
                             child: Center(
                               child: Text(
@@ -96,7 +100,7 @@ class _FoundingsScreenState extends State<FoundingsScreen> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.epilogue(
                                   textStyle: AppStyles.regularGreyText16,
-                                  color: _selectedIndex == 1 ? Colors.white : AppColors.gray,
+                                  color: _selectedIndex == 1 ? AppColors.secondColor : AppColors.gray,
                                 ),
                               ),
                             ),
@@ -117,14 +121,14 @@ class _FoundingsScreenState extends State<FoundingsScreen> {
                         ListWidget(
                           imgList: foundingsImgList,
                           titleList: foundingsTitleList,
-                          subTitleList: [],
-                          onTap: (index) => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(title: foundingsTitleList[index], description: '', imgPath: foundingsImgList[index]))),
+                          subTitleList: foundingsSubTitleList,
+                          onTap: (index) => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(title: foundingsTitleList[index], description: foundingsSubTitleList[index], imgPath: foundingsImgList[index]))),
                         ),
                         ListWidget(
                           imgList: articlesImgList,
                           titleList: articlesTitleList,
-                          subTitleList: [],
-                          onTap: (index) => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(title: articlesTitleList[index], description: '', imgPath: articlesImgList[index]))),
+                          subTitleList: articlesSubTitleList,
+                          onTap: (index) => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(title: articlesTitleList[index], description: articlesSubTitleList[index], imgPath: articlesImgList[index]))),
                         ),
                       ],
                     ),

@@ -1,14 +1,10 @@
 import 'dart:async';
 
-import 'package:dream_diary/helpers/app_colors.dart';
-import 'package:dream_diary/screens/home/home_screen.dart';
-import 'package:dream_diary/screens/menu/menu_screen.dart';
 import 'package:dream_diary/screens/onboarding/onboarding_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class SplashScreen extends StatefulWidget {
-  SplashScreen({super.key});
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
