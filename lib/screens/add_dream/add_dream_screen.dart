@@ -1,6 +1,9 @@
 import 'package:dream_diary/fake_data/fake_list.dart';
+import 'package:dream_diary/fake_data/model/dream_model.dart';
+import 'package:dream_diary/fake_data/sql_db/SqlDbRepository.dart';
 import 'package:dream_diary/helpers/app_colors.dart';
 import 'package:dream_diary/helpers/app_styles.dart';
+import 'package:dream_diary/helpers/constants.dart';
 import 'package:dream_diary/widget/button_widget.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -21,14 +24,12 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
   String dropdownKeyMomentsValue = 'Flying or Falling';
   String dropdownEmotionsValue = 'Flying or Falling';
   String dropdownCharactersValue = 'Flying or Falling';
-  final Map<String, bool> selectedEmotions = {};
+  final List<String> selectedEmotions = [];
 
   @override
   void initState() {
     super.initState();
-    for (var emotion in keyMomentsList) {
-      selectedEmotions[emotion] = false;
-    }
+
   }
 
   @override
@@ -69,9 +70,9 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                         hintStyle: GoogleFonts.epilogue(
                           textStyle: AppStyles.boldWhiteHeading,
                         ),
-                        enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColors.white, width: 1)),
-                        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: AppColors.white, width: 1)),
-                        border: UnderlineInputBorder(borderSide: BorderSide(color: AppColors.white, width: 1)),
+                        enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: AppColors.white, width: 1)),
+                        focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: AppColors.white, width: 1)),
+                        border: const UnderlineInputBorder(borderSide: BorderSide(color: AppColors.white, width: 1)),
                       ),
                     ),
                   ),
@@ -184,7 +185,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                       height: 50,
                       padding: EdgeInsets.only(right: 10),
                     ),
-                    iconStyleData: IconStyleData(
+                    iconStyleData: const IconStyleData(
                       icon: Icon(
                         Icons.keyboard_arrow_down,
                         color: AppColors.white,
@@ -223,10 +224,16 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                                           emotion,
                                           style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText),
                                         ),
-                                        value: selectedEmotions[emotion],
+                                        value: selectedEmotions.contains(emotion),
                                         onChanged: (bool? newValue) {
                                           setState(() {
-                                            selectedEmotions[emotion] = newValue!;
+                                            if (newValue != null) {
+                                              if (newValue) {
+                                                selectedEmotions.add(emotion);
+                                              } else {
+                                                selectedEmotions.remove(emotion);
+                                              }
+                                            }
                                           });
                                         },
                                         activeColor: AppColors.secondColor,
@@ -333,8 +340,21 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
         height: 50,
         title: "Complete",
         isDisabledBtn: false,
-        onTap: () => Navigator.pop(context),
+        onTap: () async{
+          var model = DreamModel(
+            sleepTime: controller.text,
+            description: controller2.text,
+            moments: dropdownKeyMomentsValue,
+            emotions: selectedEmotions,
+            characters: dropdownCharactersValue
+          );
+          await insertDream(model);
+          Navigator.pop(context);
+        },
       ),
     );
   }
+}
+Future<Status> insertDream(DreamModel model){
+  return SqlDbRepository.instance.insertDream(model);
 }
