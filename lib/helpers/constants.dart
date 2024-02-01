@@ -9,3 +9,9 @@ enum BottomNavTabs {
 class LayoutConstants {
   static const snackBarRadius = 10.0;
 }
+enum Status {
+  successful,
+  unknown,
+  error,
+  notRegister,
+}

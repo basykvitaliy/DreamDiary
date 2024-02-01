@@ -25,6 +25,7 @@ class AppStyles {
   static const regularWhiteText = TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.white);
   static const regularWhiteHeading = TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white);
   static const regularWhite22 = TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white);
+  static const regularWhite24 = TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white);
   static const boldWhiteHeading = TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white);
 
   static const regularBodyMainText = TextStyle(fontSize: 8, fontWeight: FontWeight.w400, color: AppColors.mainColor);

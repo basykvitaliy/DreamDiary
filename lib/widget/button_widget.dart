@@ -8,11 +8,13 @@ class ButtonWidget extends StatelessWidget {
   ButtonWidget({
     Key? key,
     this.height,
+    this.width,
     required this.title,
     this.onTap,
     this.isDisabledBtn,
   }) : super(key: key);
 
+  double? width;
   double? height;
   String title;
   final VoidCallback? onTap;
@@ -23,7 +25,7 @@ class ButtonWidget extends StatelessWidget {
     return GestureDetector(
       onTap: !isDisabledBtn! ? onTap : null,
       child: Container(
-        width: MediaQuery.of(context).size.width,
+        width: width ?? MediaQuery.of(context).size.width,
         height: 45,
         margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),

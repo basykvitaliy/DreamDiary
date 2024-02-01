@@ -333,6 +333,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
         height: 50,
         title: "Complete",
         isDisabledBtn: false,
+        onTap: () => Navigator.pop(context),
       ),
     );
   }
