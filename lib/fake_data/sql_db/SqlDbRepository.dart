@@ -17,6 +17,7 @@ class SqlDbRepository {
   /// Dream model.
   String dreamTable = "dream_table";
   String colId = "id";
+  String colTitle = "title";
   String colSleepTime = "sleepTime";
   String colDescription = "description";
   String colMoments = "moments";
@@ -40,6 +41,7 @@ class SqlDbRepository {
   void _onCreate(Database db, int version) async {
     await db.execute("CREATE TABLE $dreamTable("
         "$colId INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "$colTitle TEXT, "
         "$colSleepTime TEXT, "
         "$colDescription TEXT, "
         "$colMoments TEXT, "
@@ -52,22 +54,20 @@ class SqlDbRepository {
     Database db = await this.db;
     final List<Map<String, dynamic>> dreamsList = await db.query(dreamTable);
     final List<DreamModel> dreams = [];
-
     for (var element in dreamsList) {
       List<String> emotionsList = [];
       if (element[colEmotions] != null) {
         emotionsList = List<String>.from(jsonDecode(element[colEmotions]));
       }
-
       DreamModel dream = DreamModel(
         id: element[colId],
+        title: element[colTitle],
         sleepTime: element[colSleepTime],
         description: element[colDescription],
         moments: element[colMoments],
         emotions: emotionsList,
         characters: element[colCharacters],
       );
-
       dreams.add(dream);
     }
     return dreams;

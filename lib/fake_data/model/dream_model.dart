@@ -1,6 +1,7 @@
 
 class DreamModel {
   int? id;
+  String? title;
   String? sleepTime;
   String? description;
   String? moments;
@@ -9,6 +10,7 @@ class DreamModel {
 
   DreamModel({
     this.id,
+    this.title,
     this.sleepTime,
     this.description,
     this.moments,
@@ -19,6 +21,7 @@ class DreamModel {
   factory DreamModel.fromJson(Map<String, dynamic> json) {
     return DreamModel(
       id: json['id'],
+      title: json['title'],
       sleepTime: json['sleepTime'],
       description: json['description'],
       moments: json['moments'],
@@ -32,6 +35,7 @@ class DreamModel {
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
+    map['title'] = title;
     map['sleepTime'] = sleepTime;
     map['description'] = description;
     map['moments'] = moments;

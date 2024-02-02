@@ -15,3 +15,7 @@ enum Status {
   error,
   notRegister,
 }
+
+class Keys{
+  static const isShowOnboarding = "isShowOnboarding";
+}

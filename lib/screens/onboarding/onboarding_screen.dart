@@ -1,10 +1,12 @@
 
 import 'package:dream_diary/helpers/app_styles.dart';
+import 'package:dream_diary/helpers/constants.dart';
 import 'package:dream_diary/screens/menu/menu_screen.dart';
 import 'package:dream_diary/widget/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingScreen extends StatefulWidget {
   @override
@@ -52,7 +54,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Container(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                    onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MenuScreen())),
+                    onPressed: ()async {
+                      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+                      sharedPreferences.setBool(Keys.isShowOnboarding, false).whenComplete((){
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MenuScreen()));
+                      });
+                    },
                     child: Text(
                       'Skip',
                       style: GoogleFonts.mulish(
@@ -110,7 +117,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         height: 50,
                         title: "Continue",
                         isDisabledBtn: false,
-                        onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MenuScreen())),
+                        onTap: ()async {
+                          SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+                          sharedPreferences.setBool(Keys.isShowOnboarding, false).whenComplete((){
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MenuScreen()));
+                          });
+                        },
                       ),
               ],
             ),

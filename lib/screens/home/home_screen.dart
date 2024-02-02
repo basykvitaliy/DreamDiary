@@ -1,5 +1,4 @@
-import 'package:dream_diary/fake_data/model/dream_model.dart';
-import 'package:dream_diary/fake_data/sql_db/SqlDbRepository.dart';
+
 import 'package:dream_diary/helpers/app_colors.dart';
 import 'package:dream_diary/helpers/app_styles.dart';
 import 'package:dream_diary/screens/add_dream/add_dream_screen.dart';
@@ -28,12 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
       duration: Duration(milliseconds: 300),
       curve: Curves.easeIn,
     );
-  }
-
-  @override
-  void initState() async{
-    await getDreams();
-    super.initState();
   }
 
   @override
@@ -140,7 +133,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-}
-Future<List<DreamModel>> getDreams() async {
-  return SqlDbRepository.instance.getDreams();
 }

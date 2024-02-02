@@ -18,7 +18,9 @@ class AddDreamScreen extends StatefulWidget {
 }
 
 class _AddDreamScreenState extends State<AddDreamScreen> {
+  TextEditingController controllerTitle = TextEditingController();
   TextEditingController controller = TextEditingController();
+  TextEditingController controller3 = TextEditingController();
   TextEditingController controller2 = TextEditingController();
 
   String dropdownKeyMomentsValue = 'Flying or Falling';
@@ -62,6 +64,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: TextFormField(
+                      controller: controllerTitle,
                       style: GoogleFonts.epilogue(
                         textStyle: AppStyles.boldWhiteHeading,
                       ),
@@ -156,7 +159,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                       ),
                     ),
                     isExpanded: true,
-                    hint: Text("Select your city",
+                    hint: Text("Moments",
                         style: GoogleFonts.epilogue(
                           textStyle: AppStyles.regularWhiteText,
                         )),
@@ -171,7 +174,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                         .toList(),
                     validator: (value) {
                       if (value == null) {
-                        return "Select your city";
+                        return "Moments";
                       }
                       return null;
                     },
@@ -204,7 +207,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: TextFormField(
-                      controller: controller,
+                      controller: controller3,
                       onTap: () {
                         showDialog(
                           context: context,
@@ -218,7 +221,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                                   ),
                                   content: ListView(
                                     shrinkWrap: true,
-                                    children: keyMomentsList.map((emotion) {
+                                    children: emotionsList.map((emotion) {
                                       return CheckboxListTile(
                                         title: Text(
                                           emotion,
@@ -230,8 +233,10 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                                             if (newValue != null) {
                                               if (newValue) {
                                                 selectedEmotions.add(emotion);
+                                                controller3.text = selectedEmotions.join(", ");
                                               } else {
                                                 selectedEmotions.remove(emotion);
+                                                controller3.text = selectedEmotions.join(", ");
                                               }
                                             }
                                           });
@@ -342,6 +347,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
         isDisabledBtn: false,
         onTap: () async{
           var model = DreamModel(
+              title: controllerTitle.text,
             sleepTime: controller.text,
             description: controller2.text,
             moments: dropdownKeyMomentsValue,
