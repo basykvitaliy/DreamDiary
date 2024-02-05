@@ -2,6 +2,7 @@ import 'package:dream_diary/helpers/app_colors.dart';
 import 'package:dream_diary/helpers/app_styles.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -75,38 +76,52 @@ class _StatisticScreenState extends State<StatisticScreen> {
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: 150,
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColors.bgElements),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      child: Stack(
                         children: [
-                          Text(
-                            "Duration",
-                            style: GoogleFonts.epilogue(
-                              textStyle: AppStyles.regularWhiteText,
-                            ),
-                          ),
-                          const SizedBox(height: 1),
-                          Text(
-                            "9h 45m",
-                            style: GoogleFonts.epilogue(
-                              textStyle: AppStyles.boldWhiteHeading,
+                          ClipRRect(
+                           borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(20)),
+                            child: SvgPicture.asset(
+                              "assets/svg/bg_1.svg",
+                              fit: BoxFit.cover,
                             ),
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 6,
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColors.white),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Container(
-                                width: 50,
-                                height: 6,
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColors.secondColor),
-                              ),
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  "Duration",
+                                  style: GoogleFonts.epilogue(
+                                    textStyle: AppStyles.regularWhiteText,
+                                  ),
+                                ),
+                                const SizedBox(height: 1),
+                                Text(
+                                  "9h 45m",
+                                  style: GoogleFonts.epilogue(
+                                    textStyle: AppStyles.boldWhiteHeading,
+                                  ),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 6,
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColors.white),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Container(
+                                      width: 50,
+                                      height: 6,
+                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColors.secondColor),
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -123,48 +138,61 @@ class _StatisticScreenState extends State<StatisticScreen> {
                     const SizedBox(height: 12),
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColors.bgElements),
-                      child: Wrap(
-                        spacing: 12.0,
-                        runSpacing: 0,
-                        alignment: WrapAlignment.center,
+                      child: Stack(
                         children: [
-                          FilterChip(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            label: Text("Water", style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.white)),
-                            backgroundColor: AppColors.bgElements,
-                            onSelected: (bool value) {},
-                            shape: const StadiumBorder(side: BorderSide(color: AppColors.secondColor)),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: SvgPicture.asset(
+                              "assets/svg/bg_2.svg",
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                          FilterChip(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            label: Text("Flying", style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.white)),
-                            backgroundColor: AppColors.bgElements,
-                            onSelected: (bool value) {},
-                            shape: const StadiumBorder(side: BorderSide(color: AppColors.secondColor)),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                            child: Wrap(
+                              spacing: 12.0,
+                              runSpacing: 0,
+                              alignment: WrapAlignment.center,
+                              children: [
+                                FilterChip(
+                                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                                  label: Text("Water", style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.white)),
+                                  backgroundColor: AppColors.bgElements,
+                                  onSelected: (bool value) {},
+                                  shape: const StadiumBorder(side: BorderSide(color: AppColors.secondColor)),
+                                ),
+                                FilterChip(
+                                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                                  label: Text("Flying", style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.white)),
+                                  backgroundColor: AppColors.bgElements,
+                                  onSelected: (bool value) {},
+                                  shape: const StadiumBorder(side: BorderSide(color: AppColors.secondColor)),
+                                ),
+                                FilterChip(
+                                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                                  label: Text("Falling", style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.white)),
+                                  backgroundColor: AppColors.bgElements,
+                                  onSelected: (bool value) {},
+                                  shape: const StadiumBorder(side: BorderSide(color: AppColors.secondColor)),
+                                ),
+                                FilterChip(
+                                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                                  label: Text("Being Chased", style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.white)),
+                                  backgroundColor: AppColors.bgElements,
+                                  onSelected: (bool value) {},
+                                  shape: const StadiumBorder(side: BorderSide(color: AppColors.secondColor)),
+                                ),
+                                FilterChip(
+                                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                                  label: Text("Animals", style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.white)),
+                                  backgroundColor: AppColors.bgElements,
+                                  onSelected: (bool value) {},
+                                  shape: const StadiumBorder(side: BorderSide(color: AppColors.secondColor)),
+                                )
+                              ],
+                            ),
                           ),
-                          FilterChip(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            label: Text("Falling", style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.white)),
-                            backgroundColor: AppColors.bgElements,
-                            onSelected: (bool value) {},
-                            shape: const StadiumBorder(side: BorderSide(color: AppColors.secondColor)),
-                          ),
-                          FilterChip(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            label: Text("Being Chased", style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.white)),
-                            backgroundColor: AppColors.bgElements,
-                            onSelected: (bool value) {},
-                            shape: const StadiumBorder(side: BorderSide(color: AppColors.secondColor)),
-                          ),
-                          FilterChip(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            label: Text("Animals", style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.white)),
-                            backgroundColor: AppColors.bgElements,
-                            onSelected: (bool value) {},
-                            shape: const StadiumBorder(side: BorderSide(color: AppColors.secondColor)),
-                          )
                         ],
                       ),
                     ),
