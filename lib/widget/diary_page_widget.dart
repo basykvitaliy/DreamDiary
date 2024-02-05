@@ -17,7 +17,45 @@ class DiaryPageWidget extends StatefulWidget {
 }
 
 class _DiaryPageWidgetState extends State<DiaryPageWidget> {
-  List<DreamModel> list = List<DreamModel>.empty(growable: true);
+  TextEditingController searchController = TextEditingController();
+  List<DreamModel> dreamsList = [];
+  List<DreamModel> filteredDreamsList = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    loadDreams();
+  }
+
+  Future<void> loadDreams() async {
+    try {
+      var dreams = await getDreams();
+      setState(() {
+        dreamsList = dreams;
+        filteredDreamsList = List.from(dreamsList);
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  void filterDreams(String query) {
+    final filtered = dreamsList.where((dream) {
+      final titleLower = dream.title?.toLowerCase();
+      final searchLower = query.toLowerCase();
+
+      return titleLower!.contains(searchLower);
+    }).toList();
+
+    setState(() {
+      filteredDreamsList.clear();
+      filteredDreamsList = filtered;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +75,9 @@ class _DiaryPageWidgetState extends State<DiaryPageWidget> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width / 1.4,
                     child: TextFormField(
+                      controller: searchController,
+                      onChanged: filterDreams,
+                      style: GoogleFonts.mulish(textStyle: AppStyles.regularBodyGreyText14, color: AppColors.gray),
                       decoration: InputDecoration(
                         hintText: 'Search',
                         hintStyle: GoogleFonts.mulish(textStyle: AppStyles.regularBodyGreyText14, color: AppColors.gray),
@@ -50,22 +91,24 @@ class _DiaryPageWidgetState extends State<DiaryPageWidget> {
               ),
             ],
           ),
-          FutureBuilder(
-              future: getDreams(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Center(child: Text('Помилка: ${snapshot.error}'));
-                } else {
-                  var dreamsList = snapshot.data as List<DreamModel>;
-                  return ListView.builder(
+          isLoading
+              ? const CircularProgressIndicator()
+              : Container(
+            width: MediaQuery.of(context).size.width,
+                child: Expanded(
+                    child: ListView.builder(
                       shrinkWrap: true,
                       physics: const ScrollPhysics(),
-                      itemCount: dreamsList.length,
+                      itemCount: filteredDreamsList.length,
                       itemBuilder: (ctx, index) {
+                        final dream = filteredDreamsList[index];
                         return GestureDetector(
-                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailDreamScreen(model: dreamsList[index],))),
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DetailDreamScreen(
+                                        model: dream,
+                                      ))),
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                             margin: const EdgeInsets.only(bottom: 12),
@@ -75,39 +118,40 @@ class _DiaryPageWidgetState extends State<DiaryPageWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  dreamsList[index].title.toString(),
+                                  dream.title.toString(),
                                   style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteHeading),
                                 ),
                                 Text(
-                                  getFormattedDate(dreamsList[index].timestamp),
+                                  getFormattedDate(dream.timestamp),
                                   style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.gray),
                                 ),
                                 const SizedBox(height: 16),
                                 Text(
-                                  dreamsList[index].description.toString(),
+                                  dream.description.toString(),
                                   style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.gray, fontWeight: FontWeight.w600),
                                 ),
                                 const SizedBox(height: 12),
                                 Wrap(
                                   spacing: 8.0,
                                   runSpacing: 4.0,
-                                  children: dreamsList[index]
+                                  children: dream
                                       .emotions!
                                       .map((tag) => FilterChip(
-                                            label: Text(tag, style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.white)),
-                                            backgroundColor: AppColors.bgElements,
-                                            onSelected: (bool value) {},
-                                            shape: const StadiumBorder(side: BorderSide(color: AppColors.secondColor)),
-                                          ))
+                                    label: Text(tag, style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.white)),
+                                    backgroundColor: AppColors.bgElements,
+                                    onSelected: (bool value) {},
+                                    shape: const StadiumBorder(side: BorderSide(color: AppColors.secondColor)),
+                                  ))
                                       .toList(),
                                 )
                               ],
                             ),
                           ),
                         );
-                      });
-                }
-              }),
+                      },
+                    ),
+                  ),
+              ),
           const SizedBox(height: 70)
         ],
       ),

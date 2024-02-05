@@ -14,10 +14,7 @@ List<String> keyMomentsList = [
   "Conquering Challenges",
   "Animal Transformation",
   "Meeting Deceased Loved Ones",
-  "Natural Disasters",
-  "Being Unprepared",
-  "Time Travel",
-  "Invisibility or Power"
+  "Natural Disasters"
 ];
 
 List<String> emotionsList = [
