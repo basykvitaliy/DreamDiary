@@ -18,4 +18,5 @@ enum Status {
 
 class Keys{
   static const isShowOnboarding = "isShowOnboarding";
+  static const isPremium = "isPremium";
 }

@@ -357,6 +357,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
           );
           await insertDream(model);
           Navigator.pop(context);
+
         },
       ),
     );

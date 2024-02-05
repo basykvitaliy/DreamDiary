@@ -1,8 +1,10 @@
 import 'package:dream_diary/helpers/app_colors.dart';
 import 'package:dream_diary/helpers/app_styles.dart';
+import 'package:dream_diary/helpers/constants.dart';
 import 'package:dream_diary/widget/out_shadow_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PremiumScreen extends StatelessWidget {
   PremiumScreen({super.key});
@@ -69,7 +71,12 @@ class PremiumScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 GestureDetector(
-                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PremiumScreen())),
+                  onTap: ()async {
+                    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+                    sharedPreferences.setBool(Keys.isPremium, true).whenComplete((){
+                      Navigator.pop(context);
+                    });
+                  },
                   child: Stack(
                     children: [
                       Container(

@@ -1,13 +1,13 @@
 import 'package:dream_diary/fake_data/fake_list.dart';
-import 'package:dream_diary/helpers/app_colors.dart';
 import 'package:dream_diary/helpers/app_styles.dart';
+import 'package:dream_diary/helpers/constants.dart';
 import 'package:dream_diary/screens/detail/detail_screen.dart';
 import 'package:dream_diary/screens/premium/premium_screen.dart';
-import 'package:dream_diary/widget/button_widget.dart';
 import 'package:dream_diary/widget/buy_premium_widget.dart';
 import 'package:dream_diary/widget/list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TechniquesScreen extends StatefulWidget {
   const TechniquesScreen({super.key});
@@ -18,6 +18,16 @@ class TechniquesScreen extends StatefulWidget {
 
 class _TechniquesScreenState extends State<TechniquesScreen> {
   bool isPremium = false;
+
+  @override
+  void initState() {
+    _checkPremium().then((value) {
+      setState(() {
+        isPremium = value;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,4 +74,12 @@ class _TechniquesScreenState extends State<TechniquesScreen> {
       ),
     );
   }
+}
+Future<bool> _checkPremium() async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  bool isShowOnboarding = false;
+  if (sharedPreferences.containsKey(Keys.isPremium)) {
+    isShowOnboarding = sharedPreferences.getBool(Keys.isPremium)!;
+  }
+  return isShowOnboarding;
 }

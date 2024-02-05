@@ -49,10 +49,6 @@ class _StatisticScreenState extends State<StatisticScreen> {
                             textStyle: AppStyles.boldWhiteHeading,
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: const Icon(Icons.more_vert, color: AppColors.white),
-                        )
                       ],
                     ),
                   ],
