@@ -352,7 +352,8 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
             description: controller2.text,
             moments: dropdownKeyMomentsValue,
             emotions: selectedEmotions,
-            characters: dropdownCharactersValue
+            characters: dropdownCharactersValue,
+            timestamp: DateTime.now().millisecondsSinceEpoch
           );
           await insertDream(model);
           Navigator.pop(context);

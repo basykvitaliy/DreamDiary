@@ -23,6 +23,7 @@ class SqlDbRepository {
   String colMoments = "moments";
   String colEmotions = "emotions";
   String colCharacters = "characters";
+  String colTimestamp = "timestamp";
   /// Dream model.
 
   Future<Database> get db async {
@@ -46,7 +47,8 @@ class SqlDbRepository {
         "$colDescription TEXT, "
         "$colMoments TEXT, "
         "$colEmotions TEXT, "
-        "$colCharacters TEXT) "
+        "$colCharacters TEXT, "
+        "$colTimestamp INTEGER) "
     );
   }
 
@@ -67,6 +69,7 @@ class SqlDbRepository {
         moments: element[colMoments],
         emotions: emotionsList,
         characters: element[colCharacters],
+        timestamp: element[colTimestamp],
       );
       dreams.add(dream);
     }

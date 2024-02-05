@@ -7,6 +7,7 @@ class DreamModel {
   String? moments;
   List<String>? emotions;
   String? characters;
+  int? timestamp;
 
   DreamModel({
     this.id,
@@ -16,6 +17,7 @@ class DreamModel {
     this.moments,
     this.emotions,
     this.characters,
+    this.timestamp,
   });
 
   factory DreamModel.fromJson(Map<String, dynamic> json) {
@@ -29,6 +31,7 @@ class DreamModel {
           ? List<String>.from(json['emotions'])
           : null,
       characters: json['characters'],
+      timestamp: json['timestamp'],
     );
   }
 
@@ -40,6 +43,7 @@ class DreamModel {
     map['description'] = description;
     map['moments'] = moments;
     map['characters'] = characters;
+    map['timestamp'] = timestamp;
     if (emotions != null) {
       map['emotions'] = emotions!.map((e) => e).toList();
     }
