@@ -1,16 +1,13 @@
-import 'package:dream_diary/fake_data/fake_list.dart';
+
 import 'package:dream_diary/fake_data/model/dream_model.dart';
-import 'package:dream_diary/fake_data/sql_db/SqlDbRepository.dart';
 import 'package:dream_diary/helpers/app_colors.dart';
 import 'package:dream_diary/helpers/app_styles.dart';
-import 'package:dream_diary/helpers/constants.dart';
 import 'package:dream_diary/screens/interpretators/interpretators_screen.dart';
 import 'package:dream_diary/widget/button_widget.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_plus/share_plus.dart';
 
 class DetailDreamScreen extends StatefulWidget {
   DetailDreamScreen( {super.key, required this.model});
@@ -185,17 +182,22 @@ class _DetailDreamScreenState extends State<DetailDreamScreen> {
       floatingActionButton: Row(
         children: [
           Expanded(
-            child: Container(
-              width: 50,
-              height: 50,
-              margin: const EdgeInsets.only(left: 12),
-              padding: const EdgeInsets.all(14),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25),
-                color: AppColors.bgElements
-              ),
-              child: SvgPicture.asset(
-                "assets/svg/out.svg",
+            child: GestureDetector(
+              onTap: (){
+                Share.share('Share');
+              },
+              child: Container(
+                width: 50,
+                height: 50,
+                margin: const EdgeInsets.only(left: 12),
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  color: AppColors.bgElements
+                ),
+                child: SvgPicture.asset(
+                  "assets/svg/out.svg",
+                ),
               ),
             ),
           ),
