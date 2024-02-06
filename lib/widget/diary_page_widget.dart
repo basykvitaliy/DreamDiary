@@ -13,10 +13,10 @@ class DiaryPageWidget extends StatefulWidget {
   const DiaryPageWidget({super.key});
 
   @override
-  State<DiaryPageWidget> createState() => _DiaryPageWidgetState();
+  State<DiaryPageWidget> createState() => DiaryPageWidgetState();
 }
 
-class _DiaryPageWidgetState extends State<DiaryPageWidget> {
+class DiaryPageWidgetState extends State<DiaryPageWidget> {
   TextEditingController searchController = TextEditingController();
   List<DreamModel> dreamsList = [];
   List<DreamModel> filteredDreamsList = [];
@@ -27,8 +27,6 @@ class _DiaryPageWidgetState extends State<DiaryPageWidget> {
     super.initState();
     loadDreams();
   }
-
-
 
   Future<void> loadDreams() async {
     try {

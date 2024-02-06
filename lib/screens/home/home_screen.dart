@@ -21,6 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
   int _selectedIndex = 0;
 
+  final GlobalKey<DiaryPageWidgetState> _childKey = GlobalKey();
+
   void _onItemTapped(int index) {
     _pageController.animateToPage(
       index,
@@ -113,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         });
                       },
                       children: [
-                        DiaryPageWidget(),
+                        DiaryPageWidget(key: _childKey),
                         DreamPageWidget(),
                       ],
                     ),
@@ -128,7 +130,11 @@ class _HomeScreenState extends State<HomeScreen> {
           height: 50,
           title: "Add a Dream",
           isDisabledBtn: false,
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AddDreamScreen())),
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const AddDreamScreen())).then((value) {
+              _childKey.currentState?.loadDreams();
+            });
+          }
         ),
       ),
     );
