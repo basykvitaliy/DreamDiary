@@ -34,7 +34,7 @@ class _InterpretatorScreenState extends State<InterpretatorScreen> {
                   const SizedBox(height: 50),
                   Row(
                     children: [
-                      GestureDetector(
+                      InkResponse(
                           onTap: () => Navigator.pop(context),
                           child: const Icon(
                             Icons.arrow_back,

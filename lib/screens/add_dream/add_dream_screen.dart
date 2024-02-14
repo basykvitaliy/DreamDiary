@@ -100,6 +100,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                       readOnly: true,
                       style: GoogleFonts.epilogue(
                         textStyle: AppStyles.regularMainText16,
+                        color: AppColors.white,
                       ),
                       decoration: InputDecoration(
                         hintText: "00.00",
@@ -128,6 +129,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                       minLines: 3,
                       style: GoogleFonts.epilogue(
                         textStyle: AppStyles.regularMainText16,
+                        color: AppColors.white,
                       ),
                       decoration: InputDecoration(
                         hintText: "Start typing...",
@@ -162,6 +164,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                     hint: Text("Moments",
                         style: GoogleFonts.epilogue(
                           textStyle: AppStyles.regularWhiteText,
+                          color: AppColors.white,
                         )),
                     items: keyMomentsList
                         .map((item) => DropdownMenuItem<String>(
@@ -225,7 +228,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                                       return CheckboxListTile(
                                         title: Text(
                                           emotion,
-                                          style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText),
+                                          style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText, color: AppColors.white),
                                         ),
                                         value: selectedEmotions.contains(emotion),
                                         onChanged: (bool? newValue) {
@@ -263,10 +266,11 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                       readOnly: true,
                       style: GoogleFonts.epilogue(
                         textStyle: AppStyles.regularMainText16,
+                        color: AppColors.white,
                       ),
                       decoration: InputDecoration(
                         hintText: "Emotions",
-                        hintStyle: GoogleFonts.mulish(textStyle: AppStyles.regularBodyGreyText14, color: AppColors.gray),
+                        hintStyle: GoogleFonts.mulish(textStyle: AppStyles.regularBodyGreyText14, color: AppColors.white),
                         filled: true,
                         fillColor: AppColors.bgElements,
                         border: OutlineInputBorder(
@@ -298,6 +302,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                     hint: Text("Characters",
                         style: GoogleFonts.epilogue(
                           textStyle: AppStyles.regularWhiteText,
+                          color: AppColors.white,
                         )),
                     items: caractersList
                         .map((item) => DropdownMenuItem<String>(
@@ -305,6 +310,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                               child: Text(item,
                                   style: GoogleFonts.epilogue(
                                     textStyle: AppStyles.regularWhiteText,
+                                    color: AppColors.white,
                                   )),
                             ))
                         .toList(),
@@ -342,7 +348,6 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: ButtonWidget(
-        height: 50,
         title: "Complete",
         isDisabledBtn: false,
         onTap: () async{

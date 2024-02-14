@@ -26,11 +26,11 @@ class ButtonWidget extends StatelessWidget {
       onTap: !isDisabledBtn! ? onTap : null,
       child: Container(
         width: width ?? MediaQuery.of(context).size.width,
-        height: 45,
+        height: 50,
         margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(25),
           color: AppColors.secondColor,
           boxShadow: OutShadowWidget().showOutShadow(),
         ),

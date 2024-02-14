@@ -33,7 +33,7 @@ class PremiumScreen extends StatelessWidget {
                         textStyle: AppStyles.boldWhiteHeading,
                       ),
                     ),
-                    GestureDetector(
+                    InkResponse(
                       onTap: () => Navigator.pop(context),
                       child: const Icon(Icons.close_outlined, color: AppColors.white),
                     )

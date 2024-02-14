@@ -56,8 +56,6 @@ class DiaryPageWidgetState extends State<DiaryPageWidget> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -94,63 +92,65 @@ class DiaryPageWidgetState extends State<DiaryPageWidget> {
           ),
           isLoading
               ? const CircularProgressIndicator()
-              : Container(
-            width: MediaQuery.of(context).size.width,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: const ScrollPhysics(),
-                  itemCount: filteredDreamsList.length,
-                  itemBuilder: (ctx, index) {
-                    final dream = filteredDreamsList[index];
-                    return GestureDetector(
-                      onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DetailDreamScreen(
-                                    model: dream,
-                                  ))),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                        margin: const EdgeInsets.only(bottom: 12),
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColors.bgElements),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              dream.title.toString(),
-                              style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteHeading),
-                            ),
-                            Text(
-                              getFormattedDate(dream.timestamp),
-                              style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.gray),
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              dream.description.toString(),
-                              style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.gray, fontWeight: FontWeight.w600),
-                            ),
-                            const SizedBox(height: 12),
-                            Wrap(
-                              spacing: 8.0,
-                              runSpacing: 4.0,
-                              children: dream
-                                  .emotions!
-                                  .map((tag) => FilterChip(
-                                label: Text(tag, style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.white)),
-                                backgroundColor: AppColors.bgElements,
-                                onSelected: (bool value) {},
-                                shape: const StadiumBorder(side: BorderSide(color: AppColors.secondColor)),
-                              ))
-                                  .toList(),
-                            )
-                          ],
+              : SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const ScrollPhysics(),
+                    padding: const EdgeInsets.only(top: 12),
+                    itemCount: filteredDreamsList.length,
+                    itemBuilder: (ctx, index) {
+                      final dream = filteredDreamsList[index];
+                      return GestureDetector(
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DetailDreamScreen(
+                                      model: dream,
+                                    ))),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                          margin: const EdgeInsets.only(bottom: 12),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColors.bgElements),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                dream.title.toString(),
+                                style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteHeading),
+                              ),
+                              Text(
+                                getFormattedDate(dream.timestamp),
+                                style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.gray),
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                dream.description.toString(),
+                                style:
+                                    GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.gray, fontWeight: FontWeight.w600),
+                              ),
+                              const SizedBox(height: 12),
+                              Wrap(
+                                spacing: 8.0,
+                                runSpacing: 4.0,
+                                children: dream.emotions!
+                                    .map((tag) => FilterChip(
+                                          label:
+                                              Text(tag, style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.white)),
+                                          backgroundColor: AppColors.bgElements,
+                                          onSelected: (bool value) {},
+                                          shape: const StadiumBorder(side: BorderSide(color: AppColors.secondColor)),
+                                        ))
+                                    .toList(),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
-              ),
           const SizedBox(height: 70)
         ],
       ),

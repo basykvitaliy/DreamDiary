@@ -1,7 +1,6 @@
-import 'package:dream_diary/fake_data/fake_list.dart';
+
 import 'package:dream_diary/helpers/app_colors.dart';
 import 'package:dream_diary/helpers/app_styles.dart';
-import 'package:dream_diary/widget/list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,7 +21,21 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          SizedBox(width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.height, child: Image.asset("assets/images/main_bg.png", fit: BoxFit.cover)),
+          SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: Image.asset(
+                "assets/images/main_bg.png",
+                fit: BoxFit.cover,
+              )),
+          Positioned(
+            right: 0,
+            top: 24,
+            child: Image.asset(
+              "assets/images/stars.png",
+              fit: BoxFit.cover,
+            ),
+          ),
           SingleChildScrollView(
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -32,7 +45,7 @@ class DetailScreen extends StatelessWidget {
                   const SizedBox(height: 50),
                   Row(
                     children: [
-                      GestureDetector(
+                      InkResponse(
                           onTap: () => Navigator.pop(context),
                           child: const Icon(
                             Icons.arrow_back,

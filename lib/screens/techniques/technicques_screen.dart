@@ -52,7 +52,7 @@ class _TechniquesScreenState extends State<TechniquesScreen> {
                             textStyle: AppStyles.boldWhiteHeading,
                           ),
                         ),
-                        const SizedBox(height: 32),
+                        const SizedBox(height: 8),
                         ListWidget(
                           imgList: techniquesImgList,
                           titleList: techniquesTitleList,
@@ -69,12 +69,32 @@ class _TechniquesScreenState extends State<TechniquesScreen> {
                     ),
                   ),
                 )
-              : Center(child: BuyPremiumWidget(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PremiumScreen())),)),
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 50, left: 16),
+                      child: Text(
+                        "Techniques",
+                        style: GoogleFonts.epilogue(
+                          textStyle: AppStyles.boldWhiteHeading,
+                        ),
+                      ),
+                    ),
+                    Center(
+                        child: BuyPremiumWidget(
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PremiumScreen())),
+                    )),
+                    const SizedBox(height: 50),
+                  ],
+                ),
         ],
       ),
     );
   }
 }
+
 Future<bool> _checkPremium() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   bool isShowOnboarding = false;

@@ -12,11 +12,9 @@ class FoundingsScreen extends StatefulWidget {
 
   @override
   State<FoundingsScreen> createState() => _FoundingsScreenState();
-
 }
 
 class _FoundingsScreenState extends State<FoundingsScreen> {
-
   final PageController _pageController = PageController();
   int _selectedIndex = 0;
 
@@ -28,7 +26,6 @@ class _FoundingsScreenState extends State<FoundingsScreen> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -36,13 +33,10 @@ class _FoundingsScreenState extends State<FoundingsScreen> {
       child: Scaffold(
         body: Stack(
           children: [
-            SizedBox(width: MediaQuery
-                .of(context)
-                .size
-                .width, height: MediaQuery
-                .of(context)
-                .size
-                .height, child: Image.asset("assets/images/main_bg.png", fit: BoxFit.cover)),
+            SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: Image.asset("assets/images/main_bg.png", fit: BoxFit.cover)),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
@@ -55,7 +49,7 @@ class _FoundingsScreenState extends State<FoundingsScreen> {
                       textStyle: AppStyles.boldWhiteHeading,
                     ),
                   ),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 24),
                   Row(
                     children: [
                       Expanded(
@@ -64,11 +58,10 @@ class _FoundingsScreenState extends State<FoundingsScreen> {
                           child: Container(
                             height: 40,
                             decoration: BoxDecoration(
-                              border: Border.all(width: 1, color: _selectedIndex == 0 ? AppColors.secondColor : AppColors.gray),
-                              borderRadius: BorderRadius.circular(25),
-                              color: _selectedIndex == 0 ? AppColors.bgElements : Colors.transparent,
-                              boxShadow: _selectedIndex == 0 ? OutShadowWidget().showOutShadow() : null
-                            ),
+                                border: Border.all(width: 1, color: _selectedIndex == 0 ? AppColors.secondColor : AppColors.gray),
+                                borderRadius: BorderRadius.circular(25),
+                                color: _selectedIndex == 0 ? AppColors.bgElements : Colors.transparent,
+                                boxShadow: _selectedIndex == 0 ? OutShadowWidget().showOutShadow() : null),
                             child: Center(
                               child: Text(
                                 "Foundings",
@@ -89,11 +82,10 @@ class _FoundingsScreenState extends State<FoundingsScreen> {
                           child: Container(
                             height: 40,
                             decoration: BoxDecoration(
-                              border: Border.all(width: 1, color: _selectedIndex == 1 ? AppColors.secondColor : AppColors.gray),
-                              borderRadius: BorderRadius.circular(25),
+                                border: Border.all(width: 1, color: _selectedIndex == 1 ? AppColors.secondColor : AppColors.gray),
+                                borderRadius: BorderRadius.circular(25),
                                 color: _selectedIndex == 1 ? AppColors.bgElements : Colors.transparent,
-                                boxShadow: _selectedIndex == 1 ? OutShadowWidget().showOutShadow() : null
-                            ),
+                                boxShadow: _selectedIndex == 1 ? OutShadowWidget().showOutShadow() : null),
                             child: Center(
                               child: Text(
                                 "Articles",
@@ -122,13 +114,23 @@ class _FoundingsScreenState extends State<FoundingsScreen> {
                           imgList: foundingsImgList,
                           titleList: foundingsTitleList,
                           subTitleList: foundingsSubTitleList,
-                          onTap: (index) => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(title: foundingsTitleList[index], description: foundingsSubTitleList[index], imgPath: foundingsImgList[index]))),
+                          onTap: (index) => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DetailScreen(
+                                      title: foundingsTitleList[index],
+                                      description: foundingsSubTitleList[index],
+                                      imgPath: foundingsImgList[index]))),
                         ),
                         ListWidget(
                           imgList: articlesImgList,
                           titleList: articlesTitleList,
                           subTitleList: articlesSubTitleList,
-                          onTap: (index) => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(title: articlesTitleList[index], description: articlesSubTitleList[index], imgPath: articlesImgList[index]))),
+                          onTap: (index) => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DetailScreen(
+                                      title: articlesTitleList[index], description: articlesSubTitleList[index], imgPath: articlesImgList[index]))),
                         ),
                       ],
                     ),
@@ -142,5 +144,3 @@ class _FoundingsScreenState extends State<FoundingsScreen> {
     );
   }
 }
-
-

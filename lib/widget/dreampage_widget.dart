@@ -85,6 +85,7 @@ class _DreamPageWidgetState extends State<DreamPageWidget> {
           ListView.builder(
             shrinkWrap: true,
             physics: const ScrollPhysics(),
+              padding: const EdgeInsets.only(top: 12),
             itemCount: filteredKeyMomentsList.length,
               itemBuilder: (context, index){
                 return Container(
