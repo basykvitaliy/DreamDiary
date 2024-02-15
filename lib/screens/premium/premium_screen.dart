@@ -21,106 +21,117 @@ class PremiumScreen extends StatelessWidget {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 50),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Column(
                   children: [
-                    Text(
-                      "Premium",
-                      style: GoogleFonts.epilogue(
-                        textStyle: AppStyles.boldWhiteHeading,
+                    const SizedBox(height: 50),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Premium",
+                          style: GoogleFonts.epilogue(
+                            textStyle: AppStyles.boldWhiteHeading,
+                          ),
+                        ),
+                        InkResponse(
+                          onTap: () => Navigator.pop(context),
+                          child: const Icon(Icons.close_outlined, color: AppColors.white),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Image.asset('assets/images/premium.png'),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Image.asset('assets/icons/star.png'),
+                        const SizedBox(width: 8),
+                        Text('Unlimited interpretations of your dreams',
+                            style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Image.asset('assets/icons/star.png'),
+                        const SizedBox(width: 8),
+                        Text('Access to Techniques', style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Image.asset('assets/icons/star.png'),
+                        const SizedBox(width: 8),
+                        Text('No advertising', style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  ],
+                ),
+
+                Column(
+                  children: [
+                    GestureDetector(
+                      onTap: ()async {
+                        SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+                        sharedPreferences.setBool(Keys.isPremium, true).whenComplete((){
+                          Navigator.pop(context);
+                        });
+                      },
+                      child: Stack(
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: const EdgeInsets.symmetric(vertical: 6),
+                            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: AppColors.secondColor,
+                              boxShadow: OutShadowWidget().showOutShadow(),
+                            ),
+                            child: Text(
+                              "Buy Premium for \$0.99",
+                              style: GoogleFonts.mulish(textStyle: AppStyles.regularHeading18, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Positioned(
+                              bottom: 8,
+                              right: 10,
+                              child: Image.asset(
+                                'assets/images/big_star.png',
+                                scale: 1.5,
+                              )),
+                        ],
                       ),
                     ),
-                    InkResponse(
-                      onTap: () => Navigator.pop(context),
-                      child: const Icon(Icons.close_outlined, color: AppColors.white),
-                    )
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text('Privacy policy',
+                            style: GoogleFonts.mulish(
+                              textStyle: AppStyles.regularWhiteText12,
+                            )),
+                        Text('Restore purchases',
+                            style: GoogleFonts.mulish(
+                              textStyle: AppStyles.regularWhiteText12,
+                            )),
+                        Text('Terms of use',
+                            style: GoogleFonts.mulish(
+                              textStyle: AppStyles.regularWhiteText12,
+                            )),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
                   ],
                 ),
-                const SizedBox(height: 20),
-                Image.asset('assets/images/premium.png'),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Image.asset('assets/icons/star.png'),
-                    const SizedBox(width: 8),
-                    Text('Unlimited interpretations of your dreams',
-                        style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText12, fontWeight: FontWeight.bold)),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Image.asset('assets/icons/star.png'),
-                    const SizedBox(width: 8),
-                    Text('Access to Techniques', style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText12, fontWeight: FontWeight.bold)),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Image.asset('assets/icons/star.png'),
-                    const SizedBox(width: 8),
-                    Text('No advertising', style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText12, fontWeight: FontWeight.bold)),
-                  ],
-                ),
-                const SizedBox(height: 24),
-                GestureDetector(
-                  onTap: ()async {
-                    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-                    sharedPreferences.setBool(Keys.isPremium, true).whenComplete((){
-                      Navigator.pop(context);
-                    });
-                  },
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.symmetric(vertical: 6),
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: AppColors.secondColor,
-                          boxShadow: OutShadowWidget().showOutShadow(),
-                        ),
-                        child: Text(
-                          "Buy Premium for \$0.99",
-                          style: GoogleFonts.mulish(textStyle: AppStyles.regularHeading18, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Positioned(
-                          bottom: 8,
-                          right: 10,
-                          child: Image.asset(
-                            'assets/images/big_star.png',
-                            scale: 1.5,
-                          )),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text('Privacy policy',
-                        style: GoogleFonts.mulish(
-                          textStyle: AppStyles.regularWhiteText12,
-                        )),
-                    Text('Restore purchases',
-                        style: GoogleFonts.mulish(
-                          textStyle: AppStyles.regularWhiteText12,
-                        )),
-                    Text('Terms of use',
-                        style: GoogleFonts.mulish(
-                          textStyle: AppStyles.regularWhiteText12,
-                        )),
-                  ],
-                )
+
               ],
             ),
           ),

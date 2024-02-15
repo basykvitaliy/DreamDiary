@@ -1,12 +1,14 @@
 import 'package:dream_diary/fake_data/model/dream_model.dart';
 import 'package:dream_diary/helpers/app_colors.dart';
 import 'package:dream_diary/helpers/app_styles.dart';
+import 'package:dream_diary/helpers/constants.dart';
 import 'package:dream_diary/screens/interpretators/interpretators_screen.dart';
 import 'package:dream_diary/widget/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailDreamScreen extends StatefulWidget {
   DetailDreamScreen({super.key, required this.model});
@@ -18,6 +20,18 @@ class DetailDreamScreen extends StatefulWidget {
 }
 
 class _DetailDreamScreenState extends State<DetailDreamScreen> {
+  bool isPremium = false;
+
+  @override
+  void initState() {
+    _checkPremium().then((value) {
+      setState(() {
+        isPremium = value;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,49 +116,58 @@ class _DetailDreamScreenState extends State<DetailDreamScreen> {
                         )
                       : Container(),
                   SizedBox(height: widget.model.emotions!.isNotEmpty ? 12 : 0),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColors.bgElements),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: 50,
-                          height: 50,
-                          padding: const EdgeInsets.all(14),
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), color: AppColors.mainColor.withOpacity(0.3)),
-                          child: SvgPicture.asset(
-                            "assets/svg/moon.svg",
-                          ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Add to a dream guide",
-                              style: GoogleFonts.mulish(
-                                textStyle: AppStyles.regularWhiteText14,
-                              ),
+                  GestureDetector(
+                    onTap: () => isPremium ? Navigator.push(context, MaterialPageRoute(builder: (context) => InterpretatorScreen())) : null,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: AppColors.bgElements),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 50,
+                            height: 50,
+                            padding: const EdgeInsets.all(14),
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), color: AppColors.mainColor.withOpacity(0.3)),
+                            child: SvgPicture.asset(
+                              "assets/svg/moon.svg",
                             ),
-                            Text("(5 times left)",
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Add to a dream guide",
                                 style: GoogleFonts.mulish(
                                   textStyle: AppStyles.regularWhiteText14,
-                                )),
-                          ],
-                        ),
-                        const SizedBox(width: 20),
-                        const Icon(
-                          Icons.arrow_forward_ios,
-                          color: AppColors.secondColor,
-                          size: 16,
-                        )
-                      ],
+                                ),
+                              ),
+                              isPremium
+                                  ? Text("(5 times left)",
+                                      style: GoogleFonts.mulish(
+                                        textStyle: AppStyles.regularWhiteText14,
+                                      ))
+                                  : GestureDetector(
+                                      onTap: () {},
+                                      child: Text("(need premium)",
+                                          style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.secondColor)),
+                                    ),
+                            ],
+                          ),
+                          const SizedBox(width: 20),
+                          const Icon(
+                            Icons.arrow_forward_ios,
+                            color: AppColors.secondColor,
+                            size: 16,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(height: 12),
                   GestureDetector(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => InterpretatorScreen())),
+                    onTap: () => isPremium ? Navigator.push(context, MaterialPageRoute(builder: (context) => InterpretatorScreen())) : null,
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                       width: MediaQuery.of(context).size.width,
@@ -163,11 +186,23 @@ class _DetailDreamScreenState extends State<DetailDreamScreen> {
                           ),
                           const SizedBox(width: 14),
                           Flexible(
-                            child: Text(
-                              "Compare dreams with common symbols and interpretations",
-                              style: GoogleFonts.mulish(
-                                textStyle: AppStyles.regularWhiteText14,
-                              ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Compare dreams with common symbols and interpretations",
+                                  style: GoogleFonts.mulish(
+                                    textStyle: AppStyles.regularWhiteText14,
+                                  ),
+                                ),
+                                !isPremium
+                                    ? GestureDetector(
+                                        onTap: () {},
+                                        child: Text("(need premium)",
+                                            style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.secondColor)),
+                                      )
+                                    : const SizedBox(),
+                              ],
                             ),
                           ),
                           const SizedBox(width: 20),
@@ -221,4 +256,13 @@ class _DetailDreamScreenState extends State<DetailDreamScreen> {
       ),
     );
   }
+}
+
+Future<bool> _checkPremium() async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  bool isShowOnboarding = false;
+  if (sharedPreferences.containsKey(Keys.isPremium)) {
+    isShowOnboarding = sharedPreferences.getBool(Keys.isPremium)!;
+  }
+  return isShowOnboarding;
 }
