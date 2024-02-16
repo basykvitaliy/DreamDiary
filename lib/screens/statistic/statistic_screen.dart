@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:dream_diary/fake_data/model/dream_model.dart';
+import 'package:dream_diary/fake_data/sql_db/SqlDbRepository.dart';
 import 'package:dream_diary/helpers/app_colors.dart';
 import 'package:dream_diary/helpers/app_styles.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -15,12 +19,29 @@ class StatisticScreen extends StatefulWidget {
 
 class _StatisticScreenState extends State<StatisticScreen> {
   String formattedDate = "";
+  String sleepTime = "";
 
   @override
   void initState() {
     var date = DateTime.now();
     formattedDate = DateFormat('dd MMMM').format(date);
+    loadDreams();
     super.initState();
+  }
+
+  Future<void> loadDreams() async {
+    try {
+      var dreams = await getDreams();
+      setState(() {
+        List<String> parts = dreams.first.sleepTime!.split(" : ");
+        int hours = int.parse(parts[0]);
+        int minutes = int.parse(parts[1]);
+        sleepTime = "${hours}h ${minutes.toString().padLeft(2, '0')}m";
+
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -97,7 +118,7 @@ class _StatisticScreenState extends State<StatisticScreen> {
                                 ),
                                 const SizedBox(height: 1),
                                 Text(
-                                  "9h 45m",
+                                  sleepTime,
                                   style: GoogleFonts.epilogue(
                                     textStyle: AppStyles.boldWhiteHeading,
                                   ),
@@ -205,7 +226,7 @@ class _StatisticScreenState extends State<StatisticScreen> {
                         ),
                       ],
                     ),
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: 200,
                       child: LineChart(
@@ -272,12 +293,14 @@ class _StatisticScreenState extends State<StatisticScreen> {
                           borderData: FlBorderData(show: false, border: Border.all(color: const Color(0xff37434d), width: 1)),
                           lineBarsData: [
                             LineChartBarData(
-                              spots: const [
-                                FlSpot(0, 3),
-                                FlSpot(1, 2),
-                                FlSpot(2, 4),
-                                FlSpot(3, 3),
-                                FlSpot(6, 4),
+                              spots: [
+                                FlSpot(0, getRandomElement()),
+                                FlSpot(1, getRandomElement()),
+                                FlSpot(2, getRandomElement()),
+                                FlSpot(3, getRandomElement()),
+                                FlSpot(4, getRandomElement()),
+                                FlSpot(5, getRandomElement()),
+                                FlSpot(6, getRandomElement()),
                                 // Add the rest of your data points here
                               ],
                               isCurved: true,
@@ -321,4 +344,16 @@ class _StatisticScreenState extends State<StatisticScreen> {
       ),
     );
   }
+}
+
+double getRandomElement() {
+  final random = Random();
+  double number = random.nextDouble() * 4;
+  return (number * 10).round() / 10.0;
+}
+
+
+
+Future<List<DreamModel>> getDreams() async {
+  return SqlDbRepository.instance.getDreams();
 }

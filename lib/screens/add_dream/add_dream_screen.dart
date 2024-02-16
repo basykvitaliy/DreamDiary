@@ -75,13 +75,6 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                           }
                           return null;
                         },
-                        onChanged: (v) {
-                          if (v.length >= 12) {
-
-                          } else {
-
-                          }
-                        },
                         style: GoogleFonts.epilogue(
                           textStyle: AppStyles.boldWhiteHeading,
                         ),
@@ -110,7 +103,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                           DatePicker.showTimePicker(context, showTitleActions: true, showSecondsColumn: false, onChanged: (date) {
                             print('change $date');
                           }, onConfirm: (date) {
-                            controller.text = "${date.hour} : ${date.minute}";
+                            controller.text = "${date.hour.toString().padLeft(2, '0')} : ${date.minute.toString().padLeft(2, '0')}";
                             print('confirm $date');
                           }, currentTime: DateTime.now(), locale: LocaleType.en);
                         },
