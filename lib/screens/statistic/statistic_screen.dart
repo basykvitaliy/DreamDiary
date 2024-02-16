@@ -33,7 +33,7 @@ class _StatisticScreenState extends State<StatisticScreen> {
     try {
       var dreams = await getDreams();
       setState(() {
-        List<String> parts = dreams.first.sleepTime!.split(" : ");
+        List<String> parts = dreams.last.sleepTime!.split(" : ");
         int hours = int.parse(parts[0]);
         int minutes = int.parse(parts[1]);
         sleepTime = "${hours}h ${minutes.toString().padLeft(2, '0')}m";
