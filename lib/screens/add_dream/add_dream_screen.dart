@@ -27,9 +27,11 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
   String dropdownEmotionsValue = 'Flying or Falling';
   String dropdownCharactersValue = 'Flying or Falling';
   final List<String> selectedEmotions = [];
+  final FocusNode _focusNode = FocusNode();
 
   bool isTitle(String input) => input.isNotEmpty;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
@@ -42,10 +44,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
         physics: const ScrollPhysics(),
         child: Stack(
           children: [
-            SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: Image.asset("assets/images/main_bg.png", fit: BoxFit.cover)),
+            SizedBox(width: MediaQuery.of(context).size.width, height: MediaQuery.of(context).size.height, child: Image.asset("assets/images/main_bg.png", fit: BoxFit.cover)),
             Form(
               key: formKey,
               child: Container(
@@ -226,6 +225,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: TextFormField(
+                        focusNode: _focusNode,
                         controller: controller3,
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -234,6 +234,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                           return null;
                         },
                         onTap: () {
+                          _focusNode.unfocus();
                           showDialog(
                             context: context,
                             builder: (ctx) {
@@ -242,39 +243,39 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
                                   return AlertDialog(
                                     title: Text(
                                       'Emotions',
-                                      style: GoogleFonts.mulish(textStyle: AppStyles.regularWhite22),
+                                      style: GoogleFonts.mulish(textStyle: AppStyles.regularWhite22, ),
                                     ),
-                                    content: ListView(
-                                      shrinkWrap: true,
-                                      children: emotionsList.map((emotion) {
-                                        return CheckboxListTile(
-                                          title: Text(
-                                            emotion,
-                                            style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText, color: AppColors.white),
-                                          ),
-                                          value: selectedEmotions.contains(emotion),
-                                          onChanged: (bool? newValue) {
-                                            setState(() {
-                                              if (newValue != null) {
-                                                if (newValue) {
-                                                  selectedEmotions.add(emotion);
-                                                  controller3.text = selectedEmotions.join(", ");
-                                                } else {
-                                                  selectedEmotions.remove(emotion);
-                                                  controller3.text = selectedEmotions.join(", ");
+                                    content: SingleChildScrollView(
+                                      child: Column(
+                                        children: emotionsList.map((emotion) {
+                                          return CheckboxListTile(
+                                            title: Text(
+                                              emotion,
+                                              style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText, color: AppColors.white),
+                                            ),
+                                            value: selectedEmotions.contains(emotion),
+                                            onChanged: (bool? newValue) {
+                                              setState(() {
+                                                if (newValue != null) {
+                                                  if (newValue) {
+                                                    selectedEmotions.add(emotion);
+                                                    controller3.text = selectedEmotions.join(", ");
+                                                  } else {
+                                                    selectedEmotions.remove(emotion);
+                                                    controller3.text = selectedEmotions.join(", ");
+                                                  }
                                                 }
-                                              }
-                                            });
-                                          },
-
-                                          activeColor: AppColors.secondColor,
-                                          contentPadding: EdgeInsets.zero,
-                                          controlAffinity: ListTileControlAffinity.leading,
-                                          checkboxShape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(50),
-                                          ),
-                                        );
-                                      }).toList(),
+                                              });
+                                            },
+                                            activeColor: AppColors.secondColor,
+                                            contentPadding: EdgeInsets.zero,
+                                            controlAffinity: ListTileControlAffinity.leading,
+                                            checkboxShape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(50),
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ),
                                     ),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20.0),
@@ -375,7 +376,7 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
         title: "Complete",
         isDisabledBtn: false,
         onTap: () async {
-          if(formKey.currentState!.validate()){
+          if (formKey.currentState!.validate()) {
             var model = DreamModel(
                 title: controllerTitle.text,
                 sleepTime: controller.text,
@@ -387,7 +388,6 @@ class _AddDreamScreenState extends State<AddDreamScreen> {
             await insertDream(model);
             Navigator.pop(context);
           }
-
         },
       ),
     );
