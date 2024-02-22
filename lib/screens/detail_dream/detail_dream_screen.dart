@@ -3,6 +3,8 @@ import 'package:dream_diary/helpers/app_colors.dart';
 import 'package:dream_diary/helpers/app_styles.dart';
 import 'package:dream_diary/helpers/constants.dart';
 import 'package:dream_diary/screens/interpretators/interpretators_screen.dart';
+import 'package:dream_diary/screens/menu/menu_screen.dart';
+import 'package:dream_diary/screens/premium/premium_screen.dart';
 import 'package:dream_diary/widget/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -22,18 +24,25 @@ class DetailDreamScreen extends StatefulWidget {
 class _DetailDreamScreenState extends State<DetailDreamScreen> {
   bool isPremium = false;
 
+  // @override
+  // void initState() {
+  //   _checkPremium().then((value) {
+  //     setState(() {
+  //       isPremium = value;
+  //     });
+  //   });
+  //   super.initState();
+  // }
+
   @override
-  void initState() {
+  Widget build(BuildContext context) {
+
     _checkPremium().then((value) {
       setState(() {
         isPremium = value;
       });
     });
-    super.initState();
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
@@ -117,7 +126,7 @@ class _DetailDreamScreenState extends State<DetailDreamScreen> {
                       : Container(),
                   SizedBox(height: widget.model.emotions!.isNotEmpty ? 12 : 0),
                   GestureDetector(
-                    onTap: () => isPremium ? Navigator.push(context, MaterialPageRoute(builder: (context) => InterpretatorScreen())) : null,
+                    onTap: () => isPremium ? Navigator.pop(context) : Navigator.push(context, MaterialPageRoute(builder: (context) => PremiumScreen())),
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                       width: MediaQuery.of(context).size.width,
@@ -148,11 +157,8 @@ class _DetailDreamScreenState extends State<DetailDreamScreen> {
                                       style: GoogleFonts.mulish(
                                         textStyle: AppStyles.regularWhiteText14,
                                       ))
-                                  : GestureDetector(
-                                      onTap: () {},
-                                      child: Text("(need premium)",
-                                          style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.secondColor)),
-                                    ),
+                                  : Text("(need premium)",
+                                      style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.secondColor)),
                             ],
                           ),
                           const SizedBox(width: 20),
@@ -167,7 +173,7 @@ class _DetailDreamScreenState extends State<DetailDreamScreen> {
                   ),
                   const SizedBox(height: 12),
                   GestureDetector(
-                    onTap: () => isPremium ? Navigator.push(context, MaterialPageRoute(builder: (context) => InterpretatorScreen())) : null,
+                    onTap: () => isPremium ? Navigator.push(context, MaterialPageRoute(builder: (context) => InterpretatorScreen())) : Navigator.push(context, MaterialPageRoute(builder: (context) => PremiumScreen())),
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                       width: MediaQuery.of(context).size.width,
@@ -196,11 +202,8 @@ class _DetailDreamScreenState extends State<DetailDreamScreen> {
                                   ),
                                 ),
                                 !isPremium
-                                    ? GestureDetector(
-                                        onTap: () {},
-                                        child: Text("(need premium)",
-                                            style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.secondColor)),
-                                      )
+                                    ? Text("(need premium)",
+                                        style: GoogleFonts.mulish(textStyle: AppStyles.regularWhiteText14, color: AppColors.secondColor))
                                     : const SizedBox(),
                               ],
                             ),

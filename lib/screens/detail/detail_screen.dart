@@ -73,6 +73,7 @@ class DetailScreen extends StatelessWidget {
                       textStyle: AppStyles.regularMainText16,
                     ),
                   ),
+                  const SizedBox(height: 12)
                 ],
               ),
             ),

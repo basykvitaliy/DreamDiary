@@ -352,8 +352,6 @@ double getRandomElement() {
   return (number * 10).round() / 10.0;
 }
 
-
-
 Future<List<DreamModel>> getDreams() async {
   return SqlDbRepository.instance.getDreams();
 }
